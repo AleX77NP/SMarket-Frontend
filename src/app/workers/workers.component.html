@@ -1,0 +1,227 @@
+<div class="row">
+
+
+    <div class="col-sm-12 col-md-4 col-12">
+        <div class="container">
+            <h3>Dodavanje poslovodje</h3>
+            <form [formGroup]="createFormM" novalidate (ngSubmit)="onCreate()">
+                <div class="form-group">
+                    <label>Ime:</label>
+                    <input class="form-control" formControlName="name" type="text">
+                </div>
+                <div *ngIf="createFormM.controls['name'].invalid && (createFormM.controls['name'].dirty
+                 || createFormM.controls['name'].touched)" class="alert alert-danger">
+                 <div *ngIf="createFormM.controls['name'].errors.required">
+                     Ime je neophodno.
+                 </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Prezime:</label>
+                    <input class="form-control" formControlName="surname" type="text">
+                </div>
+                <div *ngIf="createFormM.controls['surname'].invalid && (createFormM.controls['surname'].dirty
+                 || createFormM.controls['surname'].touched)" class="alert alert-danger">
+                 <div *ngIf="createFormM.controls['surname'].errors.required">
+                     Prezime je neophodno.
+                 </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Adresa:</label>
+                    <input class="form-control" formControlName="address" type="text">
+                </div>
+                <div *ngIf="createFormM.controls['address'].invalid && (createFormM.controls['address'].dirty
+                 || createFormM.controls['address'].touched)" class="alert alert-danger">
+                 <div *ngIf="createFormM.controls['address'].errors.required">
+                     Adresa je neophodna.
+                 </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Telefon:</label>
+                    <input class="form-control" formControlName="phone" type="text">
+                </div>
+                <div *ngIf="createFormM.controls['phone'].invalid && (createFormM.controls['phone'].dirty
+                 || createFormM.controls['phone'].touched)" class="alert alert-danger">
+                 <div *ngIf="createFormM.controls['phone'].errors.required">
+                     Telefon je neophodan.
+                 </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Plata:</label>
+                    <input class="form-control" formControlName="salary" type="number">
+                </div>
+
+                <div class="form-group">
+                    <label>Smena:</label>
+                   <select class="form-control" formControlName="shift">
+                    <option value="default">Smena</option>
+                    <option *ngFor="let s of shifts" [ngValue]="s.id">
+                        {{s.value}}
+                   </select>
+                </div>
+
+                <div class="form-group">
+                    <label>P.mesto:</label>
+                    <select class="form-control" formControlName="idPlace">
+                        <option value="default">ID mesta</option>
+                      <option *ngFor="let place of places" [ngValue]="place.idPlace">
+                          {{place.idPlace}}
+                      </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Kasa:</label>
+                    <select class="form-control" formControlName="idCashbox">
+                        <option value="default">ID kase</option>
+                      <option *ngFor="let c of boxes" [ngValue]="c.idCashbox">
+                          {{c.idCashbox}}
+                      </option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary" [disabled]="createLoad">
+                    <span *ngIf="createLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                     Dodaj
+                </button>
+            </form>
+     </div>
+
+     <div class="container">
+        <h3>Izmena poslovodje</h3>
+        <form [formGroup]="editForm" novalidate (ngSubmit)="onUpdate()">
+            <div class="form-group">
+                <label>ID:</label>
+                <input class="form-control" formControlName="idWorkerE" type="number" readonly>
+            </div>
+            <div class="form-group">
+                <label>Ime:</label>
+                <input class="form-control" formControlName="nameE" type="text">
+            </div>
+            <div *ngIf="editForm.controls['nameE'].invalid && (editForm.controls['nameE'].dirty
+             || editForm.controls['nameE'].touched)" class="alert alert-danger">
+             <div *ngIf="editForm.controls['nameE'].errors.required">
+                 Ime je neophodno.
+             </div>
+            </div>
+
+            <div class="form-group">
+                <label>Prezime:</label>
+                <input class="form-control" formControlName="surnameE" type="text">
+            </div>
+            <div *ngIf="editForm.controls['surnameE'].invalid && (editForm.controls['surnameE'].dirty
+             || editForm.controls['surnameE'].touched)" class="alert alert-danger">
+             <div *ngIf="editForm.controls['surnameE'].errors.required">
+                 Prezime je neophodno.
+             </div>
+            </div>
+
+            <div class="form-group">
+                <label>Adresa:</label>
+                <input class="form-control" formControlName="addressE" type="text">
+            </div>
+            <div *ngIf="editForm.controls['addressE'].invalid && (editForm.controls['addressE'].dirty
+             || editForm.controls['addressE'].touched)" class="alert alert-danger">
+             <div *ngIf="editForm.controls['addressE'].errors.required">
+                 Adresa je neophodna.
+             </div>
+            </div>
+
+            <div class="form-group">
+                <label>Telefon:</label>
+                <input class="form-control" formControlName="phoneE" type="text">
+            </div>
+            <div *ngIf="editForm.controls['phoneE'].invalid && (editForm.controls['phoneE'].dirty
+             || editForm.controls['phoneE'].touched)" class="alert alert-danger">
+             <div *ngIf="editForm.controls['phoneE'].errors.required">
+                 Telefon je neophodan.
+             </div>
+            </div>
+
+            <div class="form-group">
+                <label>Plata:</label>
+                <input class="form-control" formControlName="salaryE" type="number">
+            </div>
+
+            <div class="form-group">
+                <label>Smena:</label>
+                 <select class="form-control" formControlName="shiftE">
+                    <option value="default">Smena</option>
+                    <option *ngFor="let s of shifts" [ngValue]="s.id">
+                        {{s.value}}
+                   </select>
+            </div>
+
+            <div class="form-group">
+                <label>P.mesto:</label>
+                <select class="form-control" formControlName="idPlaceE">
+                    <option value="default">ID mesta</option>
+                  <option *ngFor="let place of places" [ngValue]="place.idPlace">
+                      {{place.idPlace}}
+                  </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Kasa:</label>
+                <select class="form-control" formControlName="idCashboxE">
+                    <option value="default">ID kase</option>
+                  <option *ngFor="let c of boxes" [ngValue]="c.idCashbox">
+                      {{c.idCashbox}}
+                  </option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-info" [disabled]="editLoad">
+                <span *ngIf="editLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                Sačuvaj
+            </button>
+        </form>
+ </div>
+
+
+
+    </div>
+
+    <div class="col-sm-12 col-md-8 col-12" style="margin-top: 2%;">
+    <div class="container">
+    <table class="table" style="width: 100%;">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col" style="text-align: center;">ID
+            </th>
+            <th scope="col" style="text-align: center;">Ime</th>
+            <th scope="col" style="text-align: center;">Prezime</th>
+            <th scope="col" style="text-align: center;">Adresa</th>
+            <th scope="col" style="text-align: center;">Telefon</th>
+            <th scope="col" style="text-align: center;">Plata</th>
+            <th scope="col" style="text-align: center;">Smena</th>
+            <th scope="col" style="text-align: center;">P.mesto</th>
+            <th scope="col" style="text-align: center;">Kasa</th>
+            <th>Izmena</th>
+            <th>Brisanje</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let m of workers">
+                <th scope="row" style="text-align: center;">{{m.idWorker}}</th>
+                <td style="text-align: center;">{{m.name}}</td>
+                <td style="text-align: center;">{{m.surname}}</td>
+                <td style="text-align: center;">{{m.address}}</td>
+                <td style="text-align: center;">{{m.phone}}</td>
+                <td style="text-align: center;">{{m.salary}}</td>
+                <td style="text-align: center;">{{m.shift}}</td>
+                <td style="text-align: center;">{{m.idPlace}}</td>
+                <td style="text-align: center;">{{m.idCashbox}}</td>
+                <td><button class="btn btn-success" (click)="selectWorker(m)">Izmeni</button></td>
+                <td><button class="btn btn-danger" (click)="deleteSelected(m.idWorker)">Obriši</button></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+
+</div>

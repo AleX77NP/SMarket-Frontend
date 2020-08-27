@@ -1,0 +1,42 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal">
+        <a class="navbar-item">
+            <img src="assets/images/logo.png" class="logo">
+          </a>
+    </h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+          
+          <a class="p-2 text-dark lead" routerLink="/product-list">Proizvodi</a>
+          <a class="p-2 text-dark lead" routerLink="/about">O nama</a>
+          <a class="p-2 text-dark lead" routerLink="/contact">Kontakt</a>
+          <a *ngIf="getAuth() && !isAdmin()" class="p-2 text-dark lead" routerLink="/profile">Moj profil</a>
+          </nav>
+
+          <div *ngIf="isAdmin()" ngbDropdown class="d-inline-block" style="margin-right: 0.3%;">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Admin</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem routerLink="/places">Prodajna mesta</button>
+              <button ngbDropdownItem routerLink="/warehouses">Magacini</button>
+              <button ngbDropdownItem routerLink="/cashboxes">Kase</button>
+              <button ngbDropdownItem routerLink="/suppliers">Snabdevači</button>
+              <button ngbDropdownItem routerLink="/supplies">Snabdevanja</button>
+              <button ngbDropdownItem routerLink="/coupons">Kuponi</button>
+              <button ngbDropdownItem routerLink="/managers">Poslovodje</button>
+              <button ngbDropdownItem routerLink="/workers">Radnici za kasom</button>
+              <button ngbDropdownItem routerLink="/product-admin">Artikli</button>
+              <button ngbDropdownItem routerLink="/admin-orders">Kupovine</button>
+              <button style="color: #007bff;" (click)="logoutAdmin()" ngbDropdownItem>Odjava</button>
+            </div>
+          </div>
+
+        <a  *ngIf="!getAuth()" class="btn btn-outline-primary" routerLink="/sign-up-in">Prijavi se</a>
+        <div class="cart-container">
+       <a class="cart-icon" routerLink="/my-cart"><span class="mr-2"><fa-icon [icon]="faCart" style="font-size: 150%;"></fa-icon></span>
+       Moja korpa
+       <span class="badge badge-primary badge-pill">
+        {{getCount()}}
+      </span>
+       </a>
+
+        </div>
+      </div>

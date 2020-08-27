@@ -1,0 +1,201 @@
+<div class="row">
+
+    <div class="col-sm-12 col-md-4 col-12">
+        <div class="container">
+            <h3>Dodavanje</h3>
+            <form [formGroup]="createForm" novalidate (ngSubmit)="onCreate()">
+                <div class="form-group">
+                    <label>Naziv:</label>
+                    <input type="text" formControlName="name" class="form-control">
+                </div>
+                <div *ngIf="createForm.controls['name'].invalid && (createForm.controls['name'].dirty
+                 || createForm.controls['name'].touched)" class="alert alert-danger">
+                 <div *ngIf="createForm.controls['name'].errors.required">
+                     Naziv je neophodan.
+                 </div>
+                </div>
+                <div class="form-group">
+                    <label>Opis:</label>
+                    <textarea class="form-control" formControlName="description">
+                    </textarea>
+                </div>
+                <div *ngIf="createForm.controls['description'].invalid && (createForm.controls['description'].dirty
+                 || createForm.controls['description'].touched)" class="alert alert-danger">
+                 <div *ngIf="createForm.controls['description'].errors.required">
+                     Opis je neophodan.
+                 </div>
+                </div>
+                <div class="form-group">
+                    <label>Cena:</label>
+                    <input type="number" formControlName="price" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Dostupno:</label>
+                    <input type="number" formControlName="available" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Kategorija:</label>
+                    <select class="form-control" formControlName="category">
+                        <option value="default">Kategorija</option>
+                        <option *ngFor="let cat of categoriesP" [value]="cat.translated">{{cat.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Link slike:</label>
+                    <input type="text" formControlName="image" class="form-control">
+                </div>
+                <div *ngIf="createForm.controls['image'].invalid && (createForm.controls['image'].dirty
+                 || createForm.controls['image'].touched)" class="alert alert-danger">
+                 <div *ngIf="createForm.controls['image'].errors.required">
+                     Link slike je neophodan.
+                 </div>
+                </div>
+                <div class="form-group">
+                    <label>Snabdevač:</label>
+                    <select class="form-control" formControlName="idSupplier">
+                        <option value="default">ID snabdevača</option>
+                        <option *ngFor="let s of suppliers" [value]="s.idSupplier">{{s.idSupplier}}</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="createLoad">
+                    <span *ngIf="createLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                     Dodaj
+                </button>
+            </form>
+        </div>
+
+        <div class="container">
+            <h3>Izmena</h3>
+            <form [formGroup]="editForm" novalidate (ngSubmit)="onUpdate()">
+                <div class="form-group">
+                    <label>ID:</label>
+                    <input type="number" formControlName="id" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Naziv:</label>
+                    <input type="text" formControlName="nameE" class="form-control">
+                </div>
+                <div *ngIf="editForm.controls['nameE'].invalid && (editForm.controls['nameE'].dirty
+                 || editForm.controls['nameE'].touched)" class="alert alert-danger">
+                 <div *ngIf="editForm.controls['nameE'].errors.required">
+                     Naziv je neophodan.
+                 </div>
+                </div>
+                <div class="form-group">
+                    <label>Opis:</label>
+                    <textarea class="form-control" formControlName="descriptionE">
+                    </textarea>
+                </div>
+                <div *ngIf="editForm.controls['descriptionE'].invalid && (editForm.controls['descriptionE'].dirty
+                 || editForm.controls['descriptionE'].touched)" class="alert alert-danger">
+                 <div *ngIf="editForm.controls['descriptionE'].errors.required">
+                     Opis je neophodan.
+                 </div>
+                </div>
+                <div class="form-group">
+                    <label>Cena:</label>
+                    <input type="number" formControlName="priceE" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Dostupno:</label>
+                    <input type="number" formControlName="availableE" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Kategorija:</label>
+                    <select class="form-control" formControlName="categoryE">
+                        <option value="default">Kategorija</option>
+                        <option *ngFor="let cat of categoriesP" [value]="cat.translated">{{cat.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Link slike:</label>
+                    <input type="text" formControlName="imageE" class="form-control">
+                </div>
+                <div *ngIf="editForm.controls['imageE'].invalid && (editForm.controls['imageE'].dirty
+                 || editForm.controls['imageE'].touched)" class="alert alert-danger">
+                 <div *ngIf="editForm.controls['imageE'].errors.required">
+                     Link slike je neophodan.
+                 </div>
+                </div>
+                <div class="form-group">
+                    <label>Snabdevač:</label>
+                    <select class="form-control" formControlName="idSupplierE">
+                        <option value="default">ID snabdevača</option>
+                        <option *ngFor="let s of suppliers" [value]="s.idSupplier">{{s.idSupplier}}</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success" [disabled]="editLoad">
+                    <span *ngIf="editLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                    Sačuvaj
+                </button>
+            </form>
+        </div>
+
+
+
+    </div>
+
+
+    <div class=" col-sm-12 col-md-8 col-12" style="margin-top: 2%;">
+        <div class="container">
+        <table class="table" style="width: 100%;">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="text-align: center;">ID
+                </th>
+                <th scope="col" style="text-align: center;">Naziv</th>
+                <th scope="col" style="text-align: center;">Cena</th>
+                <th scope="col" style="text-align: center;">Dostupno</th>
+                <th scope="col" style="text-align: center;">Snabdevač</th>
+                <th>Izmena</th>
+                <th>Brisanje</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of selectedProducts">
+                    <th scope="row" style="text-align: center;">{{p.id}}</th>
+                    <td style="text-align: center;">{{p.name}}</td>
+                    <td style="text-align: center;">{{p.price}}</td>
+                    <td style="text-align: center;">{{p.available}}</td>
+                    <td style="text-align: center;">{{p.idSupplier}}</td>
+                    <td><button class="btn btn-success" (click)="selectOne(p)">Izmeni</button></td>
+                    <td><button class="btn btn-danger">Obriši</button></td>
+                </tr>
+             
+            </tbody>
+          </table>
+          <select class="form-control" style="width: 50%; float:right;" (change)="changeCat($event.target.value)">
+              <option value="default">Kategorija</option>
+              <option *ngFor="let cat of categoriesP" [value]="cat.translated">{{cat.name}}</option>
+          </select>
+          <hr>
+          <div class="container" style="float:right; width: 50%;">
+            <h4>Dodaj kategoriju:</h4>
+          <form [formGroup]="catForm" novalidate (ngSubmit)="newCategory()">
+                <div class="form-group">
+                    <label>Naziv:</label>
+                    <input type="text" formControlName="catName" class="form-control">
+                </div>
+                <div *ngIf="catForm.controls['catName'].invalid && (catForm.controls['catName'].dirty
+                 || catForm.controls['catName'].touched)" class="alert alert-danger">
+                 <div *ngIf="catForm.controls['catName'].errors.required">
+                     Naziv je neophodan.
+                 </div>
+                </div>
+                <div class="form-group">
+                    <label>Prevod (engleski):</label>
+                    <input type="text" formControlName="translated" class="form-control">
+                </div>
+                <div *ngIf="catForm.controls['translated'].invalid && (catForm.controls['translated'].dirty
+                 || catForm.controls['translated'].touched)" class="alert alert-danger">
+                 <div *ngIf="catForm.controls['translated'].errors.required">
+                     Prevod je neophodan.
+                 </div>
+                </div>
+                <button type="submit" class="btn btn-info" [disabled]="catLoad">Dodaj</button>
+          </form>
+        </div>
+    </div>
+
+
+    </div>

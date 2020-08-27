@@ -1,0 +1,95 @@
+<div class="row">
+
+    <div class="col-sm-12 col-md-4 col-12">
+    <div class="container">
+        <h3>Dodavanje snabdevača</h3>
+        <form [formGroup]="createForm" novalidate (ngSubmit)="onCreate()">
+            <div class="form-group">
+                <label>Naziv:</label>
+                <input class="form-control" formControlName="name" type="text">
+            </div>
+            <div *ngIf="createForm.controls['name'].invalid && (createForm.controls['name'].dirty
+             || createForm.controls['name'].touched)" class="alert alert-danger">
+             <div *ngIf="createForm.controls['name'].errors.required">
+                 Naziv je neophodan.
+             </div>
+            </div>
+            <div class="form-group">
+                <label>Lokacija snabdevača (ulica, grad):</label>
+                <input class="form-control" formControlName="location" type="text">
+            </div>
+            <div *ngIf="createForm.controls['location'].invalid && (createForm.controls['location'].dirty
+             || createForm.controls['location'].touched)" class="alert alert-danger">
+             <div *ngIf="createForm.controls['location'].errors.required">
+                 Lokacija je neophodna.
+             </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="createLoad">
+                <span *ngIf="createLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                 Dodaj
+            </button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h3>Izmena snabdevača</h3>
+        <form [formGroup]="editForm" novalidate (ngSubmit)="onUpdate()">
+            <div class="form-group">
+                <label>ID snabdevača:</label>
+                <input class="form-control" formControlName="idSupplierE" type="number" readonly>
+            </div>
+            <div class="form-group">
+                <label>Naziv:</label>
+                <input class="form-control" formControlName="nameE" type="text">
+            </div>
+            <div *ngIf="editForm.controls['nameE'].invalid && (editForm.controls['nameE'].dirty
+             || editForm.controls['nameE'].touched)" class="alert alert-danger">
+             <div *ngIf="editForm.controls['nameE'].errors.required">
+                 Naziv je neophodan.
+             </div>
+            </div>
+            <div class="form-group">
+                <label>Lokacija snabdevača:</label>
+                <input class="form-control" formControlName="locationE" type="text">
+            </div>
+            <div *ngIf="editForm.controls['locationE'].invalid && (editForm.controls['locationE'].dirty
+             || editForm.controls['locationE'].touched)" class="alert alert-danger">
+             <div *ngIf="editForm.controls['locationE'].errors.required">
+                 Lokacija je neophodna.
+             </div>
+            </div>
+            <button type="submit" class="btn btn-info" [disabled]="editLoad">
+                <span *ngIf="editLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                 Sačuvaj
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class=" col-sm-12 col-md-8 col-12" style="margin-top: 2%;">
+    <div class="container">
+    <table class="table" style="width: 100%;">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col" style="text-align: center;">ID
+            </th>
+            <th scope="col" style="text-align: center;">Naziv</th>
+            <th scope="col" style="text-align: center;">Lokacija</th>
+            <th>Izmena</th>
+            <th>Brisanje</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let sup of suppliers">
+                <th scope="row" style="text-align: center;">{{sup.idSupplier}}</th>
+                <td style="text-align: center;">{{sup.name}}</td>
+                <td style="text-align: center;">{{sup.location}}</td>
+                <td><button class="btn btn-success" (click)="selectSupplier(sup)">Izmeni</button></td>
+                <td><button class="btn btn-danger" (click)="deleteSelected(sup.idSupplier)">Obriši</button></td>
+            </tr>
+         
+        </tbody>
+      </table>
+</div>
+
+</div>

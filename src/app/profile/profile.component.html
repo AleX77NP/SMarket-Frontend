@@ -1,0 +1,95 @@
+<div class="row">
+
+<div class="col-sm-12 col-md-4 col-12">
+    <h3>Moj profil i porudžbine</h3>
+    <form [formGroup]="myForm" novalidate (ngSubmit)="onUpdate()">
+        <div class="form-group">
+            <label>Email: </label>
+            <input type="text" class="form-control" formControlName="email" readonly>
+        </div>
+       
+        <div class="form-group">
+            <label>Ime: </label>
+            <input type="text" class="form-control" formControlName="name">
+        </div>
+        <div *ngIf="myForm.controls['name'].invalid && (myForm.controls['name'].dirty
+                 || myForm.controls['name'].touched)" class="alert alert-danger">
+                 <div *ngIf="myForm.controls['name'].errors.required">
+                     Ime je neophodno.
+                 </div>
+                </div>
+        <div class="form-group">
+            <label>Prezime: </label>
+            <input type="text" class="form-control" formControlName="surname">
+        </div>
+        <div *ngIf="myForm.controls['surname'].invalid && (myForm.controls['surname'].dirty
+                 || myForm.controls['surname'].touched)" class="alert alert-danger">
+                 <div *ngIf="myForm.controls['surname'].errors.required">
+                     Prezime je neophodno.
+                 </div>
+                </div>
+        <div class="form-group">
+            <label>Adresa: </label>
+            <input type="text" class="form-control" formControlName="address">
+        </div>
+        <div *ngIf="myForm.controls['address'].invalid && (myForm.controls['address'].dirty
+                 || myForm.controls['address'].touched)" class="alert alert-danger">
+                 <div *ngIf="myForm.controls['address'].errors.required">
+                     Adresa je neophodna.
+                 </div>
+                </div>
+        <div class="form-group">
+            <label>Telefon: </label>
+            <input type="text" class="form-control" formControlName="phoneNum">
+        </div>
+        <div *ngIf="myForm.controls['phoneNum'].invalid && (myForm.controls['phoneNum'].dirty
+                 || myForm.controls['phoneNum'].touched)" class="alert alert-danger">
+                 <div *ngIf="myForm.controls['phoneNum'].errors.required">
+                     Telefon je neophodan.
+                 </div>
+                </div>
+        <button type="submit" class="btn btn-info">
+            <span *ngIf="myLoad" class="spinner-border spinner-border-sm mr-1"></span>
+            Sačuvaj izmene
+        </button>
+    </form>
+    <hr>
+    <button class="btn btn-primary" (click)="logoutMe()">
+        Odjavi me
+    </button>
+</div>
+
+
+
+<div class="col-sm-12 col-md-8 col-12">
+    <div *ngIf="orders==null">
+        <h3 style="text-align: center;"> Još uvek nema porudžbina</h3>
+     </div>
+    <div class="d-inline-bloc" *ngFor="let o of sortedOrders | keyvalue let i=index">
+        <div *ngIf="i<numOfOrders">
+        <h5 style="text-align: center; margin-bottom: 2%;">Broj porudžbine: {{o.key}}</h5>
+        <table class="table"  style="margin-bottom: 5%;">
+            <tr>
+                <th scope="col">Artikal</th>
+                <th scope="col">Cena</th>
+                <th scope="col">Količina</th>
+                <th scope="col">Ukupno</th>
+              </tr>
+        <tr *ngFor="let item of o.value" [hidden]="getHidden(o.key)">
+            <th scope="row">{{item.name}}</th>
+            <td>{{item.price}} RSD </td>
+            <td>{{item.countP}}</td>
+            <td>{{item.totalProduct}} RSD</td>
+        </tr>
+        </table>
+        <button class="btn btn-warning" (click)="toggleHidden(o.key)">Detalji</button>
+        <h6 style="float: right; margin-right: 11.5%">Sa poštarinom: {{getTotal(o.key)}} RSD</h6>
+        <h6 style="float: right; margin-right: 11.5%;">Datum: {{getDateTime(o.key)}}</h6>
+        </div>
+    </div>
+        <hr>
+        <button (click)="lessOrders()" class="btn btn-info" style="float: left;">Prikaži manje</button>
+        <button (click)="moreOrders()" class="btn btn-info" style="float: right;">Prikaži više</button>
+    </div>
+
+</div>

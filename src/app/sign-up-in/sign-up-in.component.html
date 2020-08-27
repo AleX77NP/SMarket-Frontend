@@ -1,0 +1,155 @@
+<div class="row" style="margin-top: 10%;">
+    <div class="col-sm-4 col-12">
+   <div class="container"> 
+       <h3>Registracija</h3>
+       <form [formGroup]="signupForm" novalidate class="sign-form" (ngSubmit)="onSubmit()">
+           <div class="form-group">
+               <label>Ime:</label>
+               <input class="form-control" formControlName="name" type="text">
+           </div>
+           <div *ngIf="signupForm.controls['name'].invalid && (signupForm.controls['name'].dirty
+         || signupForm.controls['name'].touched)" class="alert alert-danger">
+         <div *ngIf="signupForm.controls['name'].errors.required">
+             Ime je neophodno.
+         </div>
+        </div>
+           <div class="form-group">
+            <label>Prezime:</label>
+            <input class="form-control" formControlName="surname" type="text">
+        </div>
+        <div *ngIf="signupForm.controls['surname'].invalid && (signupForm.controls['surname'].dirty
+         || signupForm.controls['surname'].touched)" class="alert alert-danger">
+         <div *ngIf="signupForm.controls['surname'].errors.required">
+             Prezime je neophodno.
+         </div>
+        </div>
+        <div class="form-group">
+            <label>E-mail adresa:</label>
+            <input class="form-control" formControlName="email" type="email">
+        </div>
+        <div *ngIf="signupForm.controls['email'].invalid && (signupForm.controls['email'].dirty
+         || signupForm.controls['email'].touched)" class="alert alert-danger">
+         <div *ngIf="signupForm.controls['email'].errors.required">
+             E-mail adresa je neophodna.
+         </div>
+        </div>
+        <div class="form-group">
+         <label>Lozinka (1 veliko/malo slovo, broj, 6 min.):</label>
+         <div class="d-flex justify-content-between">
+                <input class="form-control" formControlName="password" [type]="hideR ? 'password' : 'text'" style="width: 88.5%;">
+            <span style="float: right; cursor: pointer;" (click)="toggleR()"><fa-icon [icon]="hideR? eye : eyeS" style="font-size: 120%;"></fa-icon></span>
+        </div>
+    </div>
+        <div *ngIf="signupForm.controls['password'].invalid && (signupForm.controls['password'].dirty
+         || signupForm.controls['password'].touched)" class="alert alert-danger">
+         <div *ngIf="signupForm.controls['password'].errors.required">
+             Lozinka je neophodna.
+         </div>
+        </div>
+        <div class="form-group">
+            <label>Adresa (Ulica, grad, ptt):</label>
+            <input class="form-control" formControlName="address" type="text">
+        </div>
+        <div *ngIf="signupForm.controls['address'].invalid && (signupForm.controls['address'].dirty
+         || signupForm.controls['address'].touched)" class="alert alert-danger">
+         <div *ngIf="signupForm.controls['address'].errors.required">
+             Adresa je neophodna.
+         </div>
+        </div>
+        <div class="form-group">
+            <label>Telefon:</label>
+            <input class="form-control" formControlName="phoneNum" type="text">
+        </div>
+        <div *ngIf="signupForm.controls['phoneNum'].invalid && (signupForm.controls['phoneNum'].dirty
+         || signupForm.controls['phoneNum'].touched)" class="alert alert-danger">
+         <div *ngIf="signupForm.controls['phoneNum'].errors.required">
+             Adresa je neophodna.
+         </div>
+        </div>
+        
+        <button type="submit" class="btn btn-success" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Registruj se
+        </button>
+       </form>
+       </div>
+    </div>
+    <div class="col-sm-4 col-12">
+        <div style=" margin:auto; width:0; height: 100%; border: 0.5px solid black">
+        </div>
+    </div>
+    <div class="col">
+    <div class="container">
+        <h3>Prijava</h3>
+        <form [formGroup]="loginForm" novalidate (ngSubmit)="onLogin()">
+            <div class="form-group">
+                <label>E-mail adresa:</label>
+                <input class="form-control" formControlName="emailU" type="email">
+            </div>
+            <div *ngIf="loginForm.controls['emailU'].invalid && (loginForm.controls['emailU'].dirty
+             || loginForm.controls['emailU'].touched)" class="alert alert-danger">
+             <div *ngIf="loginForm.controls['emailU'].errors.required">
+                 E-mail adresa je neophodna.
+             </div>
+            </div>
+            <div class="form-group">
+                <label>Lozinka:</label>
+                <div class="d-flex justify-content-between">
+                <input class="form-control" formControlName="passwordU" [type]="hideL? 'password' : 'text'" style="width: 88.5%;">
+                <span style="float: right; cursor: pointer;" (click)="toggleL()"><fa-icon [icon]="hideL? eye : eyeS" style="font-size: 120%;"></fa-icon></span>
+            </div>
+        </div>
+            <div *ngIf="loginForm.controls['passwordU'].invalid && (loginForm.controls['passwordU'].dirty
+             || loginForm.controls['passwordU'].touched)" class="alert alert-danger">
+             <div *ngIf="loginForm.controls['passwordU'].errors.required">
+                 Lozinka je neophodna.
+             </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="loginLoad">
+                <span *ngIf="loginLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                Prijavi se
+            </button>
+            <p style="margin-top:2%; cursor: pointer;" (click)="resetRequest()">Zaboravio/a si lozinku? Klikni ovde.</p>
+        </form>
+    </div>
+    <hr>
+    <div class="container" [hidden]="rHidden">
+        <form [formGroup]="resetForm" novalidate (ngSubmit)="changePass()">
+            <div class="form-group">
+                <label>Email adresa: </label>
+                <input type="email" formControlName="emailR" class="form-control">
+            </div>
+            <div *ngIf="resetForm.controls['emailR'].invalid && (resetForm.controls['emailR'].dirty
+             || resetForm.controls['emailR'].touched)" class="alert alert-danger">
+             <div *ngIf="loginForm.controls['emailR'].errors.required">
+                 E-mail je neophodan.
+             </div>
+            </div>
+            <div class="form-group">
+                <label>Nova lozinka: </label>
+                <div class="d-flex justify-content-between">
+                <input type="text" formControlName="newPass" class="form-control" [type]="fHide? 'password' : 'text'" style="width: 88.5%;">
+                <span style="float: right; cursor: pointer;" (click)="toggleF()"><fa-icon [icon]="fHide? eye : eyeS" style="font-size: 120%;"></fa-icon></span>
+                </div>
+            </div>
+            <div *ngIf="resetForm.controls['newPass'].invalid && (resetForm.controls['newPass'].dirty
+             || resetForm.controls['newPass'].touched)" class="alert alert-danger">
+             <div *ngIf="loginForm.controls['newPass'].errors.required">
+                 E-mail je neophodan.
+             </div>
+            </div>
+            <div class="form-group">
+                <label>Kod za resetovanje: </label>
+                <input type="text" formControlName="codeR" class="form-control">
+            </div>
+            <div *ngIf="resetForm.controls['codeR'].invalid && (resetForm.controls['codeR'].dirty
+             || resetForm.controls['codeR'].touched)" class="alert alert-danger">
+             <div *ngIf="loginForm.controls['codeR'].errors.required">
+                 Kod je neophodan.
+             </div>
+            </div>
+            <button type="submit" class="btn btn-warning">Promeni lozinku</button>
+        </form>
+    </div>
+</div>
+</div>

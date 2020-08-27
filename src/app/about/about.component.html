@@ -1,0 +1,37 @@
+<main role="main">
+    <div class="jumbotron">
+      <div class="container">
+        <h2 class="display-4">Dobrodošli na zvanični sajt SMarket-a!</h2>
+        <p> Nudimo veliki broj proizvoda iz različitih kategorija po najpovoljnijim cenama. Imamo prodajna mesta na više lokacija na teritoriji Republike Srbije, i moguća je dostava bilo gde. Za sva dodatna pitanja, možete nam se obratiti klikom na dugme ispod:</p>
+        <p><a class="btn btn-primary btn-lg" routerLink="/contact" role="button">Kontakt &raquo;</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Motivacija</h2>
+          <p>Paralelno sa razvojem tradicionalne prodajne mreže, SMarket predstavlja i nova online rešenja. Tako je 2020. počeo sa radom online servis za naručivanje i dostavu robe, pod simboličnim nazivom SMarket. Asortiman sa velikim izborom artikala, mogućnost lake kupovine i brze pretrage, besplatna dostava do kućnog praga na teritoriji Novog Pazara, čine ovaj servis jedinstvenim e-hipermarketom u Srbiji.</p>
+        </div>
+        <div class="col-md-4">
+          <h2>Ciljevi</h2>
+          <p>SMarket objekti nude široki asortiman u okviru koga se vodi računa i o grupama proizvoda pogodnim za dijabetičare, bezglutenskim namirnicama, kao i asortimanu organskih proizvoda. Domaći artikli imaju najveću zastupljenost u asortimanu, koja u nekim robnim grupama prelazi i 80%. </p>
+        </div>
+        <div class="col-md-4">
+          <h2>Partneri</h2>
+          <p>Veliki doprinos uspehu SMarket-a mora se pripisati uspešnim saradnjama sa mnogim snabdevačima raznih proizvoda, kao što su FruitLand, YourPlace, Frikom Srbija, Imlek, NIVEA i mnogi drugi. Nastojimo da stvorimo još mnogo partnerstava, za što bolju budućnost..</p>
+        </div>
+      </div>
+
+      <hr>
+
+    </div> <!-- /container -->
+    <ul class="list-group" style="width: 50%;">
+     <li class="list-group-item active">Dostupni kuponi: </li>
+     <li *ngFor="let c of coupons" class="list-group-item">Kod kupona: <strong>{{c.codeCoupon}}</strong> - Popust: {{c.discount}}% - Cena (uslov): {{c.cond}} RSD</li>
+    </ul>
+
+  </main>
+
+  

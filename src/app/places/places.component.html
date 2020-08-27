@@ -1,0 +1,99 @@
+<div class="row">
+    <div class="col-sm-12 col-md-4 col-12">
+        <div class="container">
+            <h3>Dodavanje mesta</h3>
+            <form [formGroup]="createForm" novalidate (ngSubmit)="onCreate()">
+                <div class="form-group">
+                    <label>Adresa mesta (ulica, grad):</label>
+                    <input class="form-control" formControlName="address" type="text">
+                </div>
+                <div *ngIf="createForm.controls['address'].invalid && (createForm.controls['address'].dirty
+                 || createForm.controls['address'].touched)" class="alert alert-danger">
+                 <div *ngIf="createForm.controls['address'].errors.required">
+                     Adresa je neophodna.
+                 </div>
+                </div>
+                <div class="form-group">
+                    <label>Veličina mesta:</label>
+                    <input class="form-control" formControlName="size" type="number">
+                </div>
+                <div *ngIf="createForm.controls['size'].invalid && (createForm.controls['size'].dirty
+                 || createForm.controls['size'].touched)" class="alert alert-danger">
+                 <div *ngIf="createForm.controls['size'].errors.required">
+                    Veličina je neophodna.
+                     </div>
+                     </div>
+                <button type="submit" class="btn btn-primary" [disabled]="createLoad">
+                    <span *ngIf="createLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                     Dodaj
+                </button>
+            </form>
+        </div>
+
+        <div class="container">
+            <h3>Izmena mesta</h3>
+            <form [formGroup]="editForm" novalidate (ngSubmit)="onUpdate()">
+                <div class="form-group">
+                    <label>ID mesta:</label>
+                    <input class="form-control" formControlName="idPlaceE" type="number" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Adresa mesta:</label>
+                    <input class="form-control" formControlName="addressE" type="text">
+                </div>
+                <div *ngIf="editForm.controls['addressE'].invalid && (editForm.controls['addressE'].dirty
+                 || editForm.controls['addressE'].touched)" class="alert alert-danger">
+                 <div *ngIf="editForm.controls['addressE'].errors.required">
+                     Adresa je neophodna.
+                 </div>
+                </div>
+                <div class="form-group">
+                    <label>Veličina mesta:</label>
+                    <input class="form-control" formControlName="sizeE" type="number">
+                </div>
+                <div *ngIf="editForm.controls['sizeE'].invalid && (editForm.controls['sizeE'].dirty
+                 || editForm.controls['sizeE'].touched)" class="alert alert-danger">
+                 <div *ngIf="editForm.controls['sizeE'].errors.required">
+                    Veličina je neophodna.
+                     </div>
+                     </div>
+                <button type="submit" class="btn btn-info" [disabled]="editLoad">
+                    <span *ngIf="editLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                     Sačuvaj
+                </button>
+            </form>
+        </div>
+    </div>
+        
+    <div class=" col-sm-12 col-md-8 col-12" style="margin-top: 2%;">
+        <div class="container">
+        <table class="table" style="width: 100%;">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="text-align: center;">ID Mesta
+                </th>
+                <th scope="col" style="text-align: center;">Adresa</th>
+                <th scope="col" style="text-align: center;">Veličina</th>
+                <th>Izmena</th>
+                <th>Brisanje</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let place of places">
+                    <th scope="row" style="text-align: center;">{{place.idPlace}}</th>
+                    <td>{{place.address}}</td>
+                    <td>{{place.size}} kvadrata</td>
+                    <td><button class="btn btn-success" (click)="selectPlace(place)">Izmeni</button></td>
+                    <td><button class="btn btn-danger" (click)="deleteSelected(place.idPlace)">Obriši</button></td>
+                </tr>
+             
+            </tbody>
+          </table>
+    </div>
+</div>
+
+   
+
+
+
+</div>

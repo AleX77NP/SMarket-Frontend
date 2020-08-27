@@ -1,0 +1,22 @@
+.logo {
+    height: 70px;
+    width: 102px;
+}
+.cart-container {
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 1%;
+    padding: 0 0.5% 0.1%;
+    border : 1px solid #007bff;
+    border-radius: 5%;
+    text-transform: capitalize;
+    color: #007bff;
+}
+.cart-container:hover {
+    background-color: #007bff;
+    color:white;
+}
+.cart-icon:hover {
+    background-color: #007bff;
+    color:white;
+}

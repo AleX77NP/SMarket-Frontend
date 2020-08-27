@@ -1,0 +1,43 @@
+<div class="row">
+
+
+    <div class="col-sm-12 col-md-12 col-12">
+    <div *ngIf="orders==null">
+        <h3 style="text-align: center;"> Još uvek nema porudžbina</h3>
+     </div>
+     <h3 style="text-align: center; margin-bottom: 5%;">Pregled svih kupovina sa sajta</h3>
+    <div class="d-inline-bloc" *ngFor="let o of sortedOrders | keyvalue let i=index" style="margin-bottom: 3%;">
+        <div *ngIf="i<numOfOrders">
+        <h5 style="text-align: center; margin-bottom: 2%;">Broj porudžbine: {{o.key}}</h5>
+        <table class="table"  style="margin-bottom: 5%;">
+            <tr>
+                <th scope="col">Artikal</th>
+                <th scope="col">Cena</th>
+                <th scope="col">Količina</th>
+                <th scope="col">Ukupno</th>
+              </tr>
+        <tr *ngFor="let item of o.value" [hidden]="getHidden(o.key)">
+            <th scope="row">{{item.name}}</th>
+            <td>{{item.price}} RSD </td>
+            <td>{{item.countP}}</td>
+            <td>{{item.totalProduct}} RSD</td>
+        </tr>
+        </table>
+        <button class="btn btn-warning" (click)="toggleHidden(o.key)">Detalji</button>
+        <h6 style="float: right; margin-right: 11.5%">Sa poštarinom: {{getTotal(o.key)}} RSD</h6>
+        <h6 style="float: right; margin-right: 11.5%">Kupac: {{getCustomer(o.key)}}</h6>
+        <button style="margin-left: 2%;" class="btn btn-danger" (click)="deleteIt(o.key)">Brisanje</button>
+        <h6 style="float: right; margin-right: 11.5%;">Datum: {{getDateTime(o.key)}}</h6>
+        <hr>
+        </div>
+        </div>
+        <hr>
+        <button (click)="lessOrders()" class="btn btn-info" style="float: left;">Prikaži manje</button>
+        <button (click)="moreOrders()" class="btn btn-info" style="float: right;">Prikaži više</button>
+        <input style="width: 50%; margin: auto;" class="form-control" (change)="onSearch($event.target.value)">
+        <h5 style="margin-top: 2%; text-align: center;">Pretraga po kupcu:</h5>
+        <button style="margin-left: 45%;" class="btn btn-info" (click)="searchOrders()">Pretraži</button>
+    </div>
+
+
+</div>

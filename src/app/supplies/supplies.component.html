@@ -1,0 +1,136 @@
+<div class="row">
+
+    <div class="col-sm-12 col-md-4 col-12">
+        <div class="container">
+            <h3>Dodavanje</h3>
+            <form [formGroup]="createForm" novalidate (ngSubmit)="onCreate()">
+                <div class="form-group">
+                    <label>Mesto:</label>
+                    <select class="form-control" formControlName="idPlace">
+                        <option value="default">ID mesta</option>
+                      <option *ngFor="let p of places" [ngValue]="p.idPlace">
+                          {{p.idPlace}}
+                      </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Snabdevač:</label>
+                    <select class="form-control" formControlName="idSupplier">
+                        <option value="default">ID snabdevača</option>
+                      <option *ngFor="let s of suppliers" [ngValue]="s.idSupplier">
+                          {{s.idSupplier}}
+                      </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Naziv artikla:</label>
+                    <input class="form-control" formControlName="product" type="text">
+                </div>
+                <div *ngIf="createForm.controls['product'].invalid && (createForm.controls['product'].dirty
+                 || createForm.controls['product'].touched)" class="alert alert-danger">
+                 <div *ngIf="createForm.controls['product'].errors.required">
+                     Artikal je neophodan.
+                 </div>
+                </div>
+                <div class="form-group">
+                    <label>Količina:</label>
+                    <input class="form-control" formControlName="quantity" type="number">
+                </div>
+                <div class="form-group">
+                    <label>Datum:</label>
+                    <input class="form-control" formControlName="date" type="text" readonly>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="createLoad">
+                    <span *ngIf="createLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                     Dodaj
+                </button>
+            </form>
+        </div>
+
+
+        <div class="container">
+            <h3>Izmena</h3>
+            <form [formGroup]="editForm" novalidate (ngSubmit)="onUpdate()">
+                <div class="form-group">
+                    <label>ID:</label>
+                    <input class="form-control" formControlName="idSE" type="number" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Mesto:</label>
+                    <select class="form-control" formControlName="idPlaceE">
+                        <option value="default">ID mesta</option>
+                      <option *ngFor="let p of places" [ngValue]="p.idPlace">
+                          {{p.idPlace}}
+                      </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Snabdevač:</label>
+                    <select class="form-control" formControlName="idSupplierE">
+                        <option value="default">ID snabdevača</option>
+                      <option *ngFor="let s of suppliers" [ngValue]="s.idSupplier">
+                          {{s.idSupplier}}
+                      </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Naziv artikla:</label>
+                    <input class="form-control" formControlName="productE" type="text">
+                </div>
+                <div *ngIf="editForm.controls['productE'].invalid && (editForm.controls['productE'].dirty
+                 || editForm.controls['productE'].touched)" class="alert alert-danger">
+                 <div *ngIf="editForm.controls['productE'].errors.required">
+                     Artikal je neophodan.
+                 </div>
+                </div>
+                <div class="form-group">
+                    <label>Količina:</label>
+                    <input class="form-control" formControlName="quantityE" type="number">
+                </div>
+                <div class="form-group">
+                    <label>Datum:</label>
+                    <input class="form-control" formControlName="dateE" type="text" readonly>
+                </div>
+                <button type="submit" class="btn btn-info" [disabled]="editLoad">
+                    <span *ngIf="editLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                    Sačuvaj
+                </button>
+            </form>
+        </div>
+
+        </div>
+
+
+    <div class=" col-sm-12 col-md-8 col-12" style="margin-top: 2%;">
+        <div class="container">
+        <table class="table" style="width: 100%;">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="text-align: center;">ID
+                </th>
+                <th scope="col" style="text-align: center;">Mesto</th>
+                <th scope="col" style="text-align: center;">Snabdevač</th>
+                <th scope="col" style="text-align: center;">Artikal</th>
+                <th scope="col" style="text-align: center;">Količina</th>
+                <th scope="col" style="text-align: center;">Datum</th>
+                <th>Izmena</th>
+                <th>Brisanje</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sup of supplies">
+                    <th scope="row" style="text-align: center;">{{sup.idS}}</th>
+                    <td style="text-align: center;">{{sup.idPlace}}</td>
+                    <td style="text-align: center;">{{sup.idSupplier}}</td>
+                    <td style="text-align: center;">{{sup.product}}</td>
+                    <td style="text-align: center;">{{sup.quantity}}</td>
+                    <td style="text-align: center;">{{sup.date}}</td>
+                    <td><button class="btn btn-success" (click)="selectOne(sup)">Izmeni</button></td>
+                    <td><button class="btn btn-danger" (click)="deleteOne(sup.idS)" >Obriši</button></td>
+                </tr>
+             
+            </tbody>
+          </table>
+    </div>
+
+</div>

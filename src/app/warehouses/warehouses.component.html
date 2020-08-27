@@ -1,0 +1,118 @@
+<div class="row">
+
+    <div class="col-sm-12 col-md-4 col-12">
+        <div class="container">
+            <h3>Dodavanje magacina</h3>
+            <form [formGroup]="createForm" novalidate (ngSubmit)="onCreate()">
+                <div class="form-group">
+                    <label>Lokacija magacina (ulica, grad):</label>
+                    <input class="form-control" formControlName="location" type="text">
+                </div>
+                <div *ngIf="createForm.controls['location'].invalid && (createForm.controls['location'].dirty
+                 || createForm.controls['location'].touched)" class="alert alert-danger">
+                 <div *ngIf="createForm.controls['location'].errors.required">
+                     Lokacija je neophodna.
+                 </div>
+                </div>
+                <div class="form-group">
+                    <label>Veličina magacina:</label>
+                    <input class="form-control" formControlName="size" type="number">
+                </div>
+                <div *ngIf="createForm.controls['size'].invalid && (createForm.controls['size'].dirty
+                 || createForm.controls['size'].touched)" class="alert alert-danger">
+                 <div *ngIf="createForm.controls['size'].errors.required">
+                    Veličina je neophodna.
+                     </div>
+                     </div>
+                     <div class="form-group">
+                        <label>Prodajno mesto:</label>
+                        <select class="form-control" formControlName="idPlace">
+                            <option value="default">ID mesta</option>
+                          <option *ngFor="let place of places" [ngValue]="place.idPlace">
+                              {{place.idPlace}}
+                          </option>
+                        </select>
+                    </div>
+                    
+                <button type="submit" class="btn btn-primary" [disabled]="createLoad">
+                    <span *ngIf="createLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                     Dodaj
+                </button>
+            </form>
+        </div>
+
+        <div class="container">
+            <h3>Izmena magacina</h3>
+            <form [formGroup]="editForm" novalidate (ngSubmit)="onUpdate()">
+                <div class="form-group">
+                    <label>ID magacina:</label>
+                    <input class="form-control" formControlName="idWarehouseE" type="number" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Lokacija magacina:</label>
+                    <input class="form-control" formControlName="locationE" type="text">
+                </div>
+                <div *ngIf="editForm.controls['locationE'].invalid && (editForm.controls['locationE'].dirty
+                 || editForm.controls['locationE'].touched)" class="alert alert-danger">
+                 <div *ngIf="editForm.controls['locationE'].errors.required">
+                     Lokacija je neophodna.
+                 </div>
+                </div>
+                <div class="form-group">
+                    <label>Veličina mesta:</label>
+                    <input class="form-control" formControlName="sizeE" type="number">
+                </div>
+                <div *ngIf="editForm.controls['sizeE'].invalid && (editForm.controls['sizeE'].dirty
+                 || editForm.controls['sizeE'].touched)" class="alert alert-danger">
+                 <div *ngIf="editForm.controls['sizeE'].errors.required">
+                    Veličina je neophodna.
+                     </div>
+                     </div>
+                     <div class="form-group">
+                        <label>Prodajno mesto:</label>
+                        <select class="form-control" formControlName="idPlaceE">
+                            <option value="default">ID mesta</option>
+                          <option *ngFor="let place of places" [ngValue]="place.idPlace">
+                              {{place.idPlace}}
+                          </option>
+                        </select>
+                    </div>
+                    
+                <button type="submit" class="btn btn-info" [disabled]="editLoad">
+                    <span *ngIf="editLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                     Sačuvaj
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class=" col-sm-12 col-md-8 col-12" style="margin-top: 2%;">
+        <div class="container">
+        <table class="table" style="width: 100%;">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="text-align: center;">ID
+                </th>
+                <th scope="col" style="text-align: center;">Lokacija</th>
+                <th scope="col" style="text-align: center;">Veličina</th>
+                <th scope="col" style="text-align: center;">Mesto</th>
+                <th>Izmena</th>
+                <th>Brisanje</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ware of warehouses">
+                    <th scope="row" style="text-align: center;">{{ware.idWarehouse}}</th>
+                    <td style="text-align: center;">{{ware.location}}</td>
+                    <td style="text-align: center;">{{ware.size}} kvadrata</td>
+                    <td style="text-align: center;">{{ware.idPlace}}</td>
+                    <td><button class="btn btn-success" (click)="selectWarehouse(ware)">Izmeni</button></td>
+                    <td><button class="btn btn-danger" (click)="deleteSelected(ware.idWarehouse)">Obriši</button></td>
+                </tr>
+             
+            </tbody>
+          </table>
+    </div>
+
+
+</div>

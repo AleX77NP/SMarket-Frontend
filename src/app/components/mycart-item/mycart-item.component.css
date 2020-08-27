@@ -1,0 +1,16 @@
+.trash-icon {
+    cursor: pointer;
+}
+
+.btn-black {
+    background : transparent;
+    text-transform: capitalize;
+    font-size: 0.8rem !important;
+    color: black;
+    border-radius: 0 !important;
+    border: 0.1rem solid black !important;
+}
+.btn-black:hover{
+    background: black !important;
+    color: white !important;
+}

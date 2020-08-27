@@ -1,0 +1,95 @@
+<div class="row">
+
+    <div class="col-sm-12 col-md-4 col-12">
+        <div class="container">
+            <h3>Dodavanje kase</h3>
+            <form [formGroup]="createForm" novalidate (ngSubmit)="onCreate()">
+                <div class="form-group">
+                    <label>Marka kase:</label>
+                    <input class="form-control" formControlName="brand" type="text">
+                </div>
+                <div *ngIf="createForm.controls['brand'].invalid && (createForm.controls['brand'].dirty
+                 || createForm.controls['brand'].touched)" class="alert alert-danger">
+                 <div *ngIf="createForm.controls['brand'].errors.required">
+                     Marka je neophodna.
+                 </div>
+                </div>
+                     <div class="form-group">
+                        <label>Prodajno mesto:</label>
+                        <select class="form-control" formControlName="idPlace">
+                            <option value="default">ID mesta</option>
+                          <option *ngFor="let place of places" [ngValue]="place.idPlace">
+                              {{place.idPlace}}
+                          </option>
+                        </select>
+                    </div>
+                    
+                <button type="submit" class="btn btn-primary" [disabled]="createLoad">
+                    <span *ngIf="createLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                     Dodaj
+                </button>
+            </form>
+        </div>
+
+        <div class="container">
+            <h3>Izmena kase</h3>
+            <form [formGroup]="editForm" novalidate (ngSubmit)="onUpdate()">
+                <div class="form-group">
+                    <label>ID kase:</label>
+                    <input class="form-control" formControlName="idCashboxE" type="number" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Marka kase:</label>
+                    <input class="form-control" formControlName="brandE" type="text">
+                </div>
+                <div *ngIf="editForm.controls['brandE'].invalid && (editForm.controls['brandE'].dirty
+                 || editForm.controls['brandE'].touched)" class="alert alert-danger">
+                 <div *ngIf="editForm.controls['brandE'].errors.required">
+                     Marka je neophodna.
+                 </div>
+                </div>
+                <div class="form-group">
+                        <label>Prodajno mesto:</label>
+                        <select class="form-control" formControlName="idPlaceE">
+                            <option value="default">ID mesta</option>
+                          <option *ngFor="let place of places" [ngValue]="place.idPlace">
+                              {{place.idPlace}}
+                          </option>
+                        </select>
+                    </div>
+                <button type="submit" class="btn btn-info" [disabled]="editLoad">
+                    <span *ngIf="editLoad" class="spinner-border spinner-border-sm mr-1"></span>
+                     Sačuvaj
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class=" col-sm-12 col-md-8 col-12" style="margin-top: 2%;">
+        <div class="container">
+        <table class="table" style="width: 100%;">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" style="text-align: center;">ID
+                </th>
+                <th scope="col" style="text-align: center;">Marka</th>
+                <th scope="col" style="text-align: center;">Mesto</th>
+                <th>Izmena</th>
+                <th>Brisanje</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let box of cashboxes">
+                    <th scope="row" style="text-align: center;">{{box.idCashbox}}</th>
+                    <td style="text-align: center;">{{box.brand}}</td>
+                    <td style="text-align: center;">{{box.idPlace}}</td>
+                    <td><button class="btn btn-success" (click)="selectCBox(box)">Izmeni</button></td>
+                    <td><button class="btn btn-danger" (click)="deleteSelected(box.idCashbox)">Obriši</button></td>
+                </tr>
+             
+            </tbody>
+          </table>
+    </div>
+
+
+</div>
